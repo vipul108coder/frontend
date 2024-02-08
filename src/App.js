@@ -1,24 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
-
+import ForgotPassword from "./components/Forgotpassword/ForgotPassword";
+import UpdatePassword from "./components/Forgotpassword/ForgotPassword";
+import Login from "./components/RegisterAndLoginPage/Login";
+import Register from "./components/RegisterAndLoginPage/Register";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ResetPassword from "./components/ResetPassword/ResetPassword";
+import Home from "./components/Home/Home";
+import { useSelector } from "react-redux"; 
+ 
 function App() {
+ 
+
+ 
+  const {isAuthenticated} = useSelector(state => state.user);
+
+ 
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>    
+    <Routes>
+      
+      <Route path="/" element={ isAuthenticated ?<Home /> :<Login />} />
+          <Route path="/register" element={ isAuthenticated ?<Home/> :<Register />} />
+       <Route path="/forgot/password" element={<ForgotPassword />}   />
+       <Route path="/password/reset/:token" element={ <ResetPassword />} />
+       <Route path="/update/password" element={ <UpdatePassword /> }  />
+
+</Routes>
+
+  </Router>
   );
 }
 
